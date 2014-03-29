@@ -1,0 +1,3 @@
+fancy_echo "Installing XCode ..."
+  sudo xcodebuild -license
+  xcode-select --install

@@ -1,0 +1,3 @@
+fancy_echo "Installing thoughbot rcm, to manage your dotfiles ..."
+  brew tap thoughtbot/formulae
+  brew_install rcm

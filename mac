@@ -1,0 +1,289 @@
+#!/usr/bin/env bash
+### end common-components/bash-shebang
+
+# Welcome to the laptop script! Be prepared to turn your laptop (or
+# desktop, no haters here) into an awesome development machine.
+
+# This file is auto-generated. Do not edit it by hand unless you know what
+# you're doing. Please see 'CONTRIBUTING.md' for more information.
+### end common-components/header
+
+trap 'ret=$?; test $ret -ne 0 && printf "failed\n\n" >&2; exit $ret' EXIT
+
+set -e
+### end common-components/exit-trap
+
+if [[ ! -d "$HOME/.bin/" ]]; then
+  mkdir "$HOME/.bin"
+fi
+
+if [ ! -f "$HOME/.bash_profile.local" ]; then
+  touch $HOME/.bash_profile.local
+fi
+### end common-components/check-home-bin
+
+fancy_echo() {
+  printf "\n%b\n" "$1"
+}
+
+less_fancy_echo() {
+  printf "%b\n" "$1"
+}
+### end common-components/shared-functions
+
+fancy_echo "Initialize SSH ..."
+  if [ ! -d ~/.ssh/ ]; then
+    ssh-keygen -f ~/.ssh/id_rsa -t rsa -N ''
+  fi
+### end common-components/ssh
+
+fancy_echo "Installing XCode ..."
+  sudo xcodebuild -license
+  xcode-select --install
+### end mac-components/xcode
+
+if ! which brew &>/dev/null; then
+  fancy_echo "Installing Homebrew, a good OS X package manager ..."
+    ruby <(curl -fsS https://raw.github.com/Homebrew/homebrew/go/install)
+    export PATH="/usr/local/bin:$PATH"
+else
+  fancy_echo "Homebrew already installed. Skipping ..."
+fi
+
+fancy_echo "Updating Homebrew formulas ..."
+brew update
+
+brew_install() {
+  if brew list -1 | grep -q "^$1"; then
+    less_fancy_echo "... skipping $1, already installed"
+  else
+    brew install $1
+  fi
+
+  true
+}
+
+brew_install_or_update() {
+  if brew list -1 | grep -q "^$1"; then
+    if brew outdated -q | grep -q "^$1"; then
+      brew upgrade $1
+    else
+      less_fancy_echo "... skipping $1, already installed and current"
+    fi
+  else
+    brew install $1
+  fi
+
+  true
+}
+
+brew_start() {
+  if brew services list | grep "^$1.*started"; then
+    less_fancy_echo "... skip $1, already starting"
+  else
+    brew services start $1
+  fi
+
+  true
+}
+### end mac-components/homebrew
+
+fancy_echo "Installing Git, thee version control system ..."
+  brew_install git
+
+fancy_echo "Installing GitHub CLI client ..."
+  brew_install hub
+
+git_clone() {
+  if [ ! -d $2 ]; then
+    git clone $1 $2
+  else
+    less_fancy_echo "... skip cloning $1, already cloned"
+  fi
+
+  true
+}
+### end mac-components/git
+
+fancy_echo "Installing Postgres, a good open source relational database ..."
+  brew_install postgres --no-python
+
+fancy_echo "Installing Redis, a good key-value database ..."
+  brew_install redis
+
+fancy_echo "Installing The Silver Searcher (better than ack or grep) to search the contents of files ..."
+  brew_install the_silver_searcher
+
+fancy_echo "Installing vim from Homebrew to get the latest version ..."
+  brew_install vim
+
+fancy_echo "Installing ctags, to index files for vim tab completion of methods, classes, variables ..."
+  brew_install ctags
+
+fancy_echo "Installing tmux, to save project state and switch between projects ..."
+  brew_install tmux
+
+fancy_echo "Installing reattach-to-user-namespace, for copy-paste and RubyMotion compatibility with tmux ..."
+  brew_install reattach-to-user-namespace
+
+fancy_echo "Installing Bash Completion, for better bash completion ..."
+  brew_install bash-completion
+
+fancy_echo "Installing QT, used by Capybara Webkit for headless Javascript integration testing ..."
+  brew_install qt
+### end mac-components/packages
+
+fancy_echo "Installing Brew Cask, to install OSX binaries ..."
+  brew tap phinze/homebrew-cask
+  brew_install brew-cask
+
+brew_cask_install() {
+  if brew cask list | grep -q "^$1"; then
+    less_fancy_echo "... skipping cask $1, already installed"
+  else
+    brew cask install $1
+  fi
+
+  true
+}
+
+fancy_echo "Installing Alfred, for quick access to Facebook ..."
+  brew_cask_install alfred
+  brew cask alfred link
+
+fancy_echo "Installing Caffeine, to fend off sleep ..."
+  brew_cask_install caffeine
+
+fancy_echo "Installing Google Chrome, you know you want it ..."
+  brew_cask_install google-chrome
+
+fancy_echo "Installing Dropbox, for sharing files ..."
+  brew_cask_install dropbox
+
+fancy_echo "Installing Textmate, for a good scratch pad ..."
+  brew_cask_install textmate
+
+fancy_echo "Installing Gitx (rownaj fork), in case you forget about 'git add -p' ..."
+  brew_cask_install gitx-rowanj
+
+fancy_echo "Installing Day-O, a better menu bar clock + calendar ..."
+  brew_cask_install day-o
+
+fancy_echo "Installing F-lux, to save your eyes ..."
+  brew_cask_install flux
+
+fancy_echo "Installing iTerm2, almost forgot ..."
+  brew_cask_install iterm2
+
+fancy_echo "Installing Macvim, of course, what took so long ..."
+  brew_cask_install macvim
+### end mac-components/casks
+
+fancy_echo "Installing wget, because sometimes you need a little wget ..."
+  brew_install wget
+
+fancy_echo "Installing ShiftIt (onsi fork), for better window management ..."
+if [ ! -d /Applications/ShiftIt.app ]; then
+    wget https://raw.github.com/onsi/ShiftIt/master/ShiftIt.zip
+    unzip -q ShiftIt.zip
+    rm ShiftIt.zip
+    mv ShiftIt.app /Applications/
+fi
+### end mac-components/downloads
+
+fancy_echo "Starting Postgres ..."
+  brew_start postgres
+### end mac-components/start-services
+
+fancy_echo "Installing rbenv, to change Ruby versions ..."
+  brew_install rbenv
+  export PATH="$HOME/.rbenv/bin:$PATH"
+
+  if ! grep -qs "rbenv init" ~/.bash_profile; then
+    fancy_echo "Enable shims and autocompletion ..."
+      eval "$(rbenv init -)"
+  fi
+
+fancy_echo "Installing rbenv-gem-rehash so the shell automatically picks up binaries after installing gems with binaries..."
+  brew_install rbenv-gem-rehash
+
+fancy_echo "Installing ruby-build, to install Rubies ..."
+  brew_install_or_update ruby-build
+
+rbenv_install() {
+  if rbenv versions | grep -q " $1"; then
+    less_fancy_echo "... skipping ruby $1, already installed"
+  else
+    rbenv install $1
+  fi
+
+  true
+}
+### end mac-components/rbenv
+
+fancy_echo "Installing GNU Compiler Collection, a necessary prerequisite to installing Ruby ..."
+  brew tap homebrew/dupes
+  brew_install apple-gcc42
+
+fancy_echo "Upgrading and linking OpenSSL ..."
+  brew_install openssl
+
+export CC=gcc-4.2
+### end mac-components/compiler-and-libraries
+
+ruby_version="2.1.1"
+
+fancy_echo "Installing Ruby $ruby_version ..."
+  rbenv_install "$ruby_version"
+
+fancy_echo "Setting $ruby_version as global default Ruby ..."
+  rbenv global "$ruby_version"
+  rbenv rehash
+
+fancy_echo "Updating to latest Rubygems version ..."
+  gem update --system
+
+fancy_echo "Installing Bundler to install project-specific Ruby gems ..."
+  gem install bundler --no-document --pre
+### end common-components/ruby-environment
+
+fancy_echo "Configuring Bundler for faster, parallel gem installation ..."
+  number_of_cores=$(sysctl -n hw.ncpu)
+  bundle config --global jobs $((number_of_cores - 1))
+### end mac-components/bundler
+
+fancy_echo "Installing Heroku CLI client ..."
+  brew_install heroku-toolbelt
+
+fancy_echo "Installing the heroku-config plugin to pull config variables locally to be used as ENV variables ..."
+  heroku plugins:install git://github.com/ddollar/heroku-config.git
+### end mac-components/heroku
+
+fancy_echo "Installing thoughbot rcm, to manage your dotfiles ..."
+  brew tap thoughtbot/formulae
+  brew_install rcm
+### end mac-components/rcm
+
+fancy_echo "Cleaning up Brew ..."
+  brew cleanup
+
+fancy_echo "Cleaning up Brew Cask ..."
+  brew cask cleanup
+### end mac-components/cleanup
+
+fancy_echo "Creating workspace ..."
+  mkdir -p ~/workspace
+
+fancy_echo "Cloning Dotfiles ..."
+  git_clone git@github.com:attack/dotfiles.git ~/workspace/dotfiles
+
+fancy_echo "Symlinking Dotfiles ..."
+  rcup -v -d ~/workspace/dotfiles -x README.md -x Brewfile -x install -x LICENSE
+### end common-components/dotfiles
+
+fancy_echo "Installing your personal additions from ~/.laptop.local ..."
+  if [[ -f ~/.laptop.local ]]; then
+    source ~/.laptop.local
+  fi
+### end common-components/personal-additions
+

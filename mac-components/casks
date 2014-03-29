@@ -1,0 +1,44 @@
+fancy_echo "Installing Brew Cask, to install OSX binaries ..."
+  brew tap phinze/homebrew-cask
+  brew_install brew-cask
+
+brew_cask_install() {
+  if brew cask list | grep -q "^$1"; then
+    less_fancy_echo "... skipping cask $1, already installed"
+  else
+    brew cask install $1
+  fi
+
+  true
+}
+
+fancy_echo "Installing Alfred, for quick access to Facebook ..."
+  brew_cask_install alfred
+  brew cask alfred link
+
+fancy_echo "Installing Caffeine, to fend off sleep ..."
+  brew_cask_install caffeine
+
+fancy_echo "Installing Google Chrome, you know you want it ..."
+  brew_cask_install google-chrome
+
+fancy_echo "Installing Dropbox, for sharing files ..."
+  brew_cask_install dropbox
+
+fancy_echo "Installing Textmate, for a good scratch pad ..."
+  brew_cask_install textmate
+
+fancy_echo "Installing Gitx (rownaj fork), in case you forget about 'git add -p' ..."
+  brew_cask_install gitx-rowanj
+
+fancy_echo "Installing Day-O, a better menu bar clock + calendar ..."
+  brew_cask_install day-o
+
+fancy_echo "Installing F-lux, to save your eyes ..."
+  brew_cask_install flux
+
+fancy_echo "Installing iTerm2, almost forgot ..."
+  brew_cask_install iterm2
+
+fancy_echo "Installing Macvim, of course, what took so long ..."
+  brew_cask_install macvim

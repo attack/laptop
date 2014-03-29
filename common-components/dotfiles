@@ -1,0 +1,8 @@
+fancy_echo "Creating workspace ..."
+  mkdir -p ~/workspace
+
+fancy_echo "Cloning Dotfiles ..."
+  git_clone git@github.com:attack/dotfiles.git ~/workspace/dotfiles
+
+fancy_echo "Symlinking Dotfiles ..."
+  rcup -v -d ~/workspace/dotfiles -x README.md -x Brewfile -x install -x LICENSE

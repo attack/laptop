@@ -1,0 +1,5 @@
+fancy_echo "Cleaning up Brew ..."
+  brew cleanup
+
+fancy_echo "Cleaning up Brew Cask ..."
+  brew cask cleanup

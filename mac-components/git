@@ -1,0 +1,15 @@
+fancy_echo "Installing Git, thee version control system ..."
+  brew_install git
+
+fancy_echo "Installing GitHub CLI client ..."
+  brew_install hub
+
+git_clone() {
+  if [ ! -d $2 ]; then
+    git clone $1 $2
+  else
+    less_fancy_echo "... skip cloning $1, already cloned"
+  fi
+
+  true
+}

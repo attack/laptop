@@ -1,0 +1,10 @@
+fancy_echo "Installing wget, because sometimes you need a little wget ..."
+  brew_install wget
+
+fancy_echo "Installing ShiftIt (onsi fork), for better window management ..."
+if [ ! -d /Applications/ShiftIt.app ]; then
+    wget https://raw.github.com/onsi/ShiftIt/master/ShiftIt.zip
+    unzip -q ShiftIt.zip
+    rm ShiftIt.zip
+    mv ShiftIt.app /Applications/
+fi

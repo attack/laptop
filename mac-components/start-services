@@ -1,0 +1,2 @@
+fancy_echo "Starting Postgres ..."
+  brew_start postgres

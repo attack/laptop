@@ -1,0 +1,14 @@
+ruby_version="2.1.1"
+
+fancy_echo "Installing Ruby $ruby_version ..."
+  rbenv_install "$ruby_version"
+
+fancy_echo "Setting $ruby_version as global default Ruby ..."
+  rbenv global "$ruby_version"
+  rbenv rehash
+
+fancy_echo "Updating to latest Rubygems version ..."
+  gem update --system
+
+fancy_echo "Installing Bundler to install project-specific Ruby gems ..."
+  gem install bundler --no-document --pre

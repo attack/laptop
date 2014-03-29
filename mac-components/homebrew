@@ -1,0 +1,44 @@
+if ! which brew &>/dev/null; then
+  fancy_echo "Installing Homebrew, a good OS X package manager ..."
+    ruby <(curl -fsS https://raw.github.com/Homebrew/homebrew/go/install)
+    export PATH="/usr/local/bin:$PATH"
+else
+  fancy_echo "Homebrew already installed. Skipping ..."
+fi
+
+fancy_echo "Updating Homebrew formulas ..."
+brew update
+
+brew_install() {
+  if brew list -1 | grep -q "^$1"; then
+    less_fancy_echo "... skipping $1, already installed"
+  else
+    brew install $1
+  fi
+
+  true
+}
+
+brew_install_or_update() {
+  if brew list -1 | grep -q "^$1"; then
+    if brew outdated -q | grep -q "^$1"; then
+      brew upgrade $1
+    else
+      less_fancy_echo "... skipping $1, already installed and current"
+    fi
+  else
+    brew install $1
+  fi
+
+  true
+}
+
+brew_start() {
+  if brew services list | grep "^$1.*started"; then
+    less_fancy_echo "... skip $1, already starting"
+  else
+    brew services start $1
+  fi
+
+  true
+}
