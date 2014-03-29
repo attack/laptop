@@ -4,6 +4,7 @@ common-components/exit-trap
 common-components/check-home-bin
 common-components/shared-functions
 common-components/ssh
+mac-components/osx
 mac-components/xcode
 mac-components/homebrew
 mac-components/git
