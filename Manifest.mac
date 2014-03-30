@@ -10,6 +10,7 @@ mac-components/homebrew
 mac-components/git
 mac-components/packages
 mac-components/casks
+mac-components/fonts
 mac-components/downloads
 mac-components/start-services
 mac-components/rbenv
