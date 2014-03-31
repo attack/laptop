@@ -1,13 +1,111 @@
 fancy_echo "Setting OSX settings ..."
 
+  # General UI/UX
+  #
+
+  # Disable the sound effects on boot
+  sudo nvram SystemAudioVolume=%80
+
+  # Expand save panel by default
+  defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true
+  defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode2 -bool true
+
+  # Save to disk (not to iCloud) by default
+  defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool false
+
+  # Disable the “Are you sure you want to open this application?” dialog
+  defaults write com.apple.LaunchServices LSQuarantine -bool false
+
+  # Trackpad, mouse, keyboard, Bluetooth accessories, and input
+  #
+
   # Disable press-and-hold for keys in favour of key repeat.
   defaults write -g ApplePressAndHoldEnabled -bool false
 
-  # Always open everything in Finder's list view. This is important.
-  defaults write com.apple.Finder FXPreferredViewStyle Nlsv
+  # Set a really fast key repeat.
+  defaults write NSGlobalDomain KeyRepeat -int 1
+
+  # Disable auto-correct
+  defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
+
+  # Screen
+  #
+
+  # Require password immediately after sleep or screen saver begins
+  defaults write com.apple.screensaver askForPassword -int 1
+  defaults write com.apple.screensaver askForPasswordDelay -int 0
+
+  # Disable shadow in screenshots
+  defaults write com.apple.screencapture disable-shadow -bool true
+
+  # Dock
+  #
+
+  # Remove the auto-hiding Dock delay
+  defaults write com.apple.dock autohide-delay -float 0
+  # Reduce the animation when hiding/showing the Dock
+  defaults write com.apple.dock autohide-time-modifier -float 0.15
+
+  # Automatically hide and show the Dock
+  defaults write com.apple.dock autohide -bool true
+
+  # Make Dock icons of hidden applications translucent
+  defaults write com.apple.dock showhidden -bool true
+
+  # Make Dock more transparent
+  defaults write com.apple.dock hide-mirror -bool true
+
+  # Finder
+  #
+
+  # Set Desktop as the default location for new Finder windows
+  # For other paths, use `PfLo` and `file:///full/path/here/`
+  defaults write com.apple.finder NewWindowTarget -string "PfDe"
+  defaults write com.apple.finder NewWindowTargetPath -string "file://${HOME}/Desktop/"
+
+  # Finder: show hidden files by default
+  defaults write com.apple.finder AppleShowAllFiles -bool true
+
+  # Finder: show all filename extensions
+  defaults write NSGlobalDomain AppleShowAllExtensions -bool true
+
+  # Finder: show status bar
+  defaults write com.apple.finder ShowStatusBar -bool true
+
+  # Finder: show path bar
+  defaults write com.apple.finder ShowPathbar -bool true
+
+  # Finder: allow text selection in Quick Look
+  defaults write com.apple.finder QLEnableTextSelection -bool true
+
+  # Display full POSIX path as Finder window title
+  defaults write com.apple.finder _FXShowPosixPathInTitle -bool true
+
+  # When performing a search, search the current folder by default
+  defaults write com.apple.finder FXDefaultSearchScope -string "SCcf"
+
+  # Disable the warning when changing a file extension
+  defaults write com.apple.finder FXEnableExtensionChangeWarning -bool false
+
+  # Always open everything in Finder's column view.
+  # defaults write com.apple.Finder FXPreferredViewStyle clmv
+  defaults write com.apple.finder FXPreferredViewStyle -string "clmv"
+
+  # Empty Trash securely by default
+  defaults write com.apple.finder EmptyTrashSecurely -bool true
 
   # Show the ~/Library folder.
   chflags nohidden ~/Library
 
-  # Set a really fast key repeat.
-  defaults write NSGlobalDomain KeyRepeat -int 0
+  # Time Machine
+  #
+
+  # Prevent Time Machine from prompting to use new hard drives as backup volume
+  defaults write com.apple.TimeMachine DoNotOfferNewDisksForBackup -bool true
+
+
+less_fancy_echo "Restarting affected apps, some of these changes require a logout/restart ..."
+
+  for app in "cfprefsd" "Finder" "SystemUIServer"; do
+    killall "${app}" > /dev/null 2>&1
+  done
