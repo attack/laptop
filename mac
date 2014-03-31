@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+
+# Ask for the administrator password upfront
+sudo -v
 ### end common-components/bash-shebang
 
 # Welcome to the laptop script! Be prepared to turn your laptop (or
