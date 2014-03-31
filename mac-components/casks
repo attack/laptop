@@ -6,13 +6,17 @@ fancy_echo "Installing Brew Cask, to install OSX binaries ..."
 CASKS=$(brew cask list)
 
 brew_cask_install() {
-  if echo ${CASKS} | grep -q "\b$1"; then
+  if is_brew_cask_installed $1; then
     less_fancy_echo "... skipping cask $1, already installed"
   else
     brew cask install $1
   fi
 
   true
+}
+
+is_brew_cask_installed() {
+  echo ${CASKS} | grep -q "\b$1"
 }
 
 brew_cask_link() {
