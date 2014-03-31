@@ -215,8 +215,11 @@ fancy_echo "Installing Brew Cask, to install OSX binaries ..."
   brew tap phinze/homebrew-cask
   brew_install brew-cask
 
+# run this once, the command is slow
+CASKS=$(brew cask list)
+
 brew_cask_install() {
-  if brew cask list | grep -q "^$1"; then
+  if echo ${CASKS} | grep -q "\b$1"; then
     less_fancy_echo "... skipping cask $1, already installed"
   else
     brew cask install $1
@@ -261,10 +264,10 @@ fancy_echo "Tapping Brew Cask Fonts, to allow easy install of fonts ..."
   brew tap caskroom/fonts
 
 fancy_echo "Installing Font inconsolata-dz, ohhh, pretty ..."
-  brew cask install font-inconsolata-dz
+  brew_cask_install font-inconsolata-dz
 
 fancy_echo "Installing Font source-code-pro, not bad ..."
-  brew cask install font-source-code-pro
+  brew_cask_install font-source-code-pro
 ### end mac-components/fonts
 
 fancy_echo "Installing wget, because sometimes you need a little wget ..."

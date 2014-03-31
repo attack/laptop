@@ -2,8 +2,11 @@ fancy_echo "Installing Brew Cask, to install OSX binaries ..."
   brew tap phinze/homebrew-cask
   brew_install brew-cask
 
+# run this once, the command is slow
+CASKS=$(brew cask list)
+
 brew_cask_install() {
-  if brew cask list | grep -q "^$1"; then
+  if echo ${CASKS} | grep -q "\b$1"; then
     less_fancy_echo "... skipping cask $1, already installed"
   else
     brew cask install $1
