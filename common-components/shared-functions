@@ -5,3 +5,7 @@ fancy_echo() {
 less_fancy_echo() {
   printf "%b\n" "$1"
 }
+
+function pause(){
+   read -p "$*"
+}

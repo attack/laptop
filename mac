@@ -28,6 +28,10 @@ fancy_echo() {
 less_fancy_echo() {
   printf "%b\n" "$1"
 }
+
+function pause(){
+   read -p "$*"
+}
 ### end common-components/shared-functions
 
 DULL=0
@@ -104,8 +108,16 @@ fancy_echo "Setting OSX settings ..."
 ### end mac-components/osx
 
 fancy_echo "Installing XCode ..."
-  sudo xcodebuild -license
-  xcode-select --install
+  if [ ! $(xcode-select -p)='/Library/Developer/CommandLineTools' ]; then
+    less_fancy_echo "${BRIGHT_RED}You must manually install Xcode${RESET}"
+    less_fancy_echo 'try these commands'
+    less_fancy_echo '$ sudo xcodebuild -license'
+    less_fancy_echo '$ xcode-select --install'
+    less_fancy_echo ''
+    pause 'Press [Enter] key after Xcode has been installed'
+  else
+    less_fancy_echo '... skipping, looks like XCode is installed'
+  fi
 ### end mac-components/xcode
 
 if ! which brew &>/dev/null; then
