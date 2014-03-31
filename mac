@@ -156,10 +156,22 @@ brew_install_or_update() {
 }
 
 brew_start() {
-  if brew services list | grep "^$1.*started"; then
-    less_fancy_echo "... skip $1, already starting"
+  if [[ -n $(brew services list) ]]; then
+    if brew services list | grep "^$1.*started"; then
+      less_fancy_echo "... skip $1, already starting"
+    else
+      brew services start $1
+    fi
+  fi
+
+  true
+}
+
+brew_tap() {
+  if brew tap | grep -q "^$1"; then
+    less_fancy_echo "... skip $1, already tapped"
   else
-    brew services start $1
+    brew tap $1
   fi
 
   true
@@ -212,7 +224,7 @@ fancy_echo "Installing QT, used by Capybara Webkit for headless Javascript integ
 ### end mac-components/packages
 
 fancy_echo "Installing Brew Cask, to install OSX binaries ..."
-  brew tap phinze/homebrew-cask
+  brew_tap phinze/homebrew-cask
   brew_install brew-cask
 
 # run this once, the command is slow
@@ -261,7 +273,7 @@ fancy_echo "Installing Macvim, of course, what took so long ..."
 ### end mac-components/casks
 
 fancy_echo "Tapping Brew Cask Fonts, to allow easy install of fonts ..."
-  brew tap caskroom/fonts
+  brew_tap caskroom/fonts
 
 fancy_echo "Installing Font inconsolata-dz, ohhh, pretty ..."
   brew_cask_install font-inconsolata-dz
@@ -313,7 +325,7 @@ rbenv_install() {
 ### end mac-components/rbenv
 
 fancy_echo "Installing GNU Compiler Collection, a necessary prerequisite to installing Ruby ..."
-  brew tap homebrew/dupes
+  brew_tap homebrew/dupes
   brew_install apple-gcc42
 
 fancy_echo "Upgrading and linking OpenSSL ..."
@@ -351,7 +363,7 @@ fancy_echo "Installing the heroku-config plugin to pull config variables locally
 ### end mac-components/heroku
 
 fancy_echo "Installing thoughbot rcm, to manage your dotfiles ..."
-  brew tap thoughtbot/formulae
+  brew_tap thoughtbot/formulae
   brew_install rcm
 ### end mac-components/rcm
 

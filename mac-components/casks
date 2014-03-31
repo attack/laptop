@@ -1,5 +1,5 @@
 fancy_echo "Installing Brew Cask, to install OSX binaries ..."
-  brew tap phinze/homebrew-cask
+  brew_tap phinze/homebrew-cask
   brew_install brew-cask
 
 # run this once, the command is slow
