@@ -11,8 +11,12 @@ fancy_echo "Installing rbenv-gem-rehash so the shell automatically picks up bina
 fancy_echo "Installing ruby-build, to install Rubies ..."
   brew_install_or_update ruby-build
 
+is_ruby_version_installed() {
+  rbenv versions | grep -q " $1"
+}
+
 rbenv_install() {
-  if rbenv versions | grep -q " $1"; then
+  if is_ruby_version_installed $1; then
     less_fancy_echo "... skipping ruby $1, already installed"
   else
     rbenv install $1

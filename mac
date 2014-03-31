@@ -448,8 +448,12 @@ fancy_echo "Installing rbenv-gem-rehash so the shell automatically picks up bina
 fancy_echo "Installing ruby-build, to install Rubies ..."
   brew_install_or_update ruby-build
 
+is_ruby_version_installed() {
+  rbenv versions | grep -q " $1"
+}
+
 rbenv_install() {
-  if rbenv versions | grep -q " $1"; then
+  if is_ruby_version_installed $1; then
     less_fancy_echo "... skipping ruby $1, already installed"
   else
     rbenv install $1
@@ -478,11 +482,13 @@ fancy_echo "Setting $ruby_version as global default Ruby ..."
   rbenv global "$ruby_version"
   rbenv rehash
 
-fancy_echo "Updating to latest Rubygems version ..."
-  gem update --system
+if ! is_ruby_version_installed $ruby_version; then
+  fancy_echo "Updating to latest Rubygems version ..."
+    gem update --system
 
-fancy_echo "Installing Bundler to install project-specific Ruby gems ..."
-  gem install bundler --no-document --pre
+  fancy_echo "Installing Bundler to install project-specific Ruby gems ..."
+    gem install bundler --no-document --pre
+fi
 ### end common-components/ruby-environment
 
 fancy_echo "Configuring Bundler for faster, parallel gem installation ..."
