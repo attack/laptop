@@ -8,3 +8,36 @@ if [ ! -d /Applications/ShiftIt.app ]; then
     rm ShiftIt.zip
     mv ShiftIt.app /Applications/
 fi
+
+fancy_echo "Downloading Solarized, for iTerm colours ..."
+  if [ ! -d ~/Applications/solarized ]; then
+    wget http://ethanschoonover.com/solarized/files/solarized.zip
+    unzip -q solarized.zip
+    rm solarized.zip
+    mv solarized ~/Applications/
+  fi
+
+fancy_echo "Installing Solarized Dark Theme for Terminal ..."
+  if [ -s ~/Library/Preferences/com.apple.Terminal.plist ]; then
+    if grep -q 'Solarized Dark' ~/Library/Preferences/com.apple.Terminal.plist; then
+      echo "... skipping theme install, already installed"
+    else
+      open ~/Applications/solarized/osx-terminal.app-colors-solarized/Solarized\ Dark\ ansi.terminal
+      sleep 1
+      defaults write com.apple.terminal "Default Window Settings" -string "Solarized Dark ansi"
+      defaults write com.apple.terminal "Startup Window Settings" -string "Solarized Dark ansi"
+    fi
+  else
+    echo "... skipping theme install, Terminal not installed"
+  fi
+
+fancy_echo "Installing Solarized Dark Theme for iTerm ..."
+  if [ -s ~/Library/Preferences/com.googlecode.iterm2.plist ]; then
+    if grep -q 'Solarized Dark' ~/Library/Preferences/com.googlecode.iterm2.plist; then
+      echo "... skipping theme install, already installed"
+    else
+      open ~/Applications/solarized/iterm2-colors-solarized/Solarized\ Dark.itermcolors
+    fi
+  else
+    echo "... skipping theme install, iTerm 2 not installed"
+  fi
