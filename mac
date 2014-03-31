@@ -240,9 +240,16 @@ brew_cask_install() {
   true
 }
 
+brew_cask_link() {
+  if brew cask $1 status | grep -q 'happily linked'; then
+    less_fancy_echo "... skip linking $1, already linked"
+  else
+    brew cask $1 link
+  fi
+}
+
 fancy_echo "Installing Alfred, for quick access to Facebook ..."
   brew_cask_install alfred
-  brew cask alfred link
 
 fancy_echo "Installing Caffeine, to fend off sleep ..."
   brew_cask_install caffeine
@@ -270,6 +277,9 @@ fancy_echo "Installing iTerm2, almost forgot ..."
 
 fancy_echo "Installing Macvim, of course, what took so long ..."
   brew_cask_install macvim
+
+fancy_echo "Linking Alfred, so that it sees casks ..."
+  brew_cask_link alfred
 ### end mac-components/casks
 
 fancy_echo "Tapping Brew Cask Fonts, to allow easy install of fonts ..."
