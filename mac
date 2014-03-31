@@ -19,10 +19,6 @@ set -e
 if [[ ! -d "$HOME/.bin/" ]]; then
   mkdir "$HOME/.bin"
 fi
-
-if [ ! -f "$HOME/.bash_profile.local" ]; then
-  touch $HOME/.bash_profile.local
-fi
 ### end common-components/check-home-bin
 
 fancy_echo() {
