@@ -337,10 +337,6 @@ fancy_echo "Installing Solarized Dark Theme for iTerm ..."
   fi
 ### end mac-components/downloads
 
-fancy_echo "Starting Postgres ..."
-  brew_start postgres
-### end mac-components/start-services
-
 fancy_echo "Installing rbenv, to change Ruby versions ..."
   brew_install rbenv
   export PATH="$HOME/.rbenv/bin:$PATH"
@@ -409,6 +405,15 @@ fancy_echo "Installing thoughbot rcm, to manage your dotfiles ..."
   brew_tap thoughtbot/formulae
   brew_install rcm
 ### end mac-components/rcm
+
+fancy_echo "Starting Postgres ..."
+  # brew_start postgres
+  if [[ -z $(ps aux | grep "[p]ostgres") ]]; then
+    # initdb /usr/local/var/postgres -E utf8
+    ln -sfv /usr/local/opt/postgresql/*.plist ~/Library/LaunchAgents
+    launchctl load ~/Library/LaunchAgents/homebrew.mxcl.postgresql.plist
+  fi
+### end mac-components/start-services
 
 fancy_echo "Cleaning up Brew ..."
   brew cleanup

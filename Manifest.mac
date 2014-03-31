@@ -13,13 +13,13 @@ mac-components/packages
 mac-components/casks
 mac-components/fonts
 mac-components/downloads
-mac-components/start-services
 mac-components/rbenv
 mac-components/compiler-and-libraries
 common-components/ruby-environment
 mac-components/bundler
 mac-components/heroku
 mac-components/rcm
+mac-components/start-services
 mac-components/cleanup
 common-components/dotfiles
 common-components/personal-additions
