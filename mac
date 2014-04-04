@@ -566,6 +566,11 @@ fancy_echo "Symlinking Dotfiles ..."
   rcup -v -d ~/workspace/dotfiles -x README.md -x Brewfile -x install -x LICENSE
 ### end common-components/dotfiles
 
+fancy_echo "Installing your shared additions from ~/.laptop.shared ..."
+  if [[ -f ~/.laptop.shared ]]; then
+    source ~/.laptop.shared
+  fi
+
 fancy_echo "Installing your personal additions from ~/.laptop.local ..."
   if [[ -f ~/.laptop.local ]]; then
     source ~/.laptop.local

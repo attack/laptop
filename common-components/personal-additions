@@ -1,3 +1,8 @@
+fancy_echo "Installing your shared additions from ~/.laptop.shared ..."
+  if [[ -f ~/.laptop.shared ]]; then
+    source ~/.laptop.shared
+  fi
+
 fancy_echo "Installing your personal additions from ~/.laptop.local ..."
   if [[ -f ~/.laptop.local ]]; then
     source ~/.laptop.local
