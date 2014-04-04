@@ -365,6 +365,9 @@ fancy_echo "Installing Google Chrome, you know you want it ..."
 fancy_echo "Installing Dropbox, for sharing files ..."
   brew_cask_install dropbox
 
+fancy_echo "Installing Google Drive, for sharing more files ..."
+  brew_cask_install google-drive
+
 fancy_echo "Installing Textmate, for a good scratch pad ..."
   brew_cask_install textmate
 
