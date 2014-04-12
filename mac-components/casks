@@ -2,8 +2,12 @@ fancy_echo "Installing Brew Cask, to install OSX binaries ..."
   brew_tap phinze/homebrew-cask
   brew_install brew-cask
 
+brew_cask_list() {
+  brew cask list 2> /dev/null || true
+}
+
 # run this once, the command is slow
-CASKS=$(brew cask list)
+CASKS=$(brew_cask_list)
 
 brew_cask_install() {
   if is_brew_cask_installed $1; then
