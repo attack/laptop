@@ -403,6 +403,8 @@ fancy_echo "Installing F-lux, to save your eyes ..."
 
 fancy_echo "Installing iTerm2, almost forgot ..."
   brew_cask_install iterm2
+  # set up file extension associations, for auto-installing themes
+  start_if_needed iTerm
 
 fancy_echo "Installing Macvim, of course, what took so long ..."
   brew_cask_install macvim
