@@ -5,6 +5,7 @@ common-components/check-home-bin
 common-components/shared-functions
 common-components/colours
 common-components/ssh
+mac-components/shared-functions
 mac-components/osx
 mac-components/xcode
 mac-components/homebrew
