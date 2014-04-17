@@ -353,7 +353,7 @@ brew_cask_install() {
   if is_brew_cask_installed $1; then
     less_fancy_echo "... skipping cask $1, already installed"
   else
-    brew cask install $1
+    brew cask install $1 2> /dev/null || true
   fi
 
   true
