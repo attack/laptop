@@ -7,10 +7,8 @@ fancy_echo "Setting $ruby_version as global default Ruby ..."
   chruby $ruby_version
   echo "ruby-$ruby_version" > ~/.ruby-version
 
-if ! is_ruby_version_installed $ruby_version; then
-  fancy_echo "Updating to latest Rubygems version ..."
-    gem update --system
+fancy_echo "Updating to latest Rubygems version ..."
+  gem update --system
 
-  fancy_echo "Installing Bundler to install project-specific Ruby gems ..."
-    gem install bundler --no-document --pre
-fi
+fancy_echo "Installing Bundler to install project-specific Ruby gems ..."
+  gem install bundler --no-document --pre
