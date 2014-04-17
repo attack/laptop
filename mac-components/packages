@@ -1,4 +1,4 @@
-fancy_echo "Install sl, for a faster ls...""
+fancy_echo "Install sl, for a faster ls..."
   brew_install sl
 
 fancy_echo "Installing Postgres, a good open source relational database ..."
