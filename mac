@@ -307,6 +307,9 @@ git_clone() {
 }
 ### end mac-components/git
 
+fancy_echo "Install sl, for a faster ls...""
+  brew_install sl
+
 fancy_echo "Installing Postgres, a good open source relational database ..."
   brew_install postgres --no-python
 
@@ -336,6 +339,9 @@ fancy_echo "Installing QT, used by Capybara Webkit for headless Javascript integ
 
 fancy_echo "Installing tig, text-mode interface to git..."
   brew_install tig
+
+fancy_echo "Install gti, for a faster git..."
+  brew_install gti
 ### end mac-components/packages
 
 fancy_echo "Installing Brew Cask, to install OSX binaries ..."
@@ -465,52 +471,38 @@ fancy_echo "Installing Solarized Dark Theme for iTerm ..."
   fi
 ### end mac-components/downloads
 
-fancy_echo "Installing rbenv, to change Ruby versions ..."
-  brew_install rbenv
-  export PATH="$HOME/.rbenv/bin:$PATH"
+fancy_echo "Installing chruby, to change Ruby versions ..."
+  brew_install chruby
+  source /usr/local/share/chruby/chruby.sh
+  source /usr/local/share/chruby/auto.sh
 
-  fancy_echo "Enable shims and autocompletion ..."
-    eval "$(rbenv init -)"
-
-fancy_echo "Installing rbenv-gem-rehash so the shell automatically picks up binaries after installing gems with binaries..."
-  brew_install rbenv-gem-rehash
-
-fancy_echo "Installing ruby-build, to install Rubies ..."
-  brew_install_or_update ruby-build
+fancy_echo "Installing ruby-install, to install Rubies ..."
+  brew_install_or_update ruby-install
 
 is_ruby_version_installed() {
-  rbenv versions | grep -q " $1"
+  chruby | grep -q "ruby-$1"
 }
 
-rbenv_install() {
+ruby_install() {
   if is_ruby_version_installed $1; then
     less_fancy_echo "... skipping ruby $1, already installed"
   else
-    rbenv install $1
+    ruby-install ruby $1
+    source /usr/local/share/chruby/chruby.sh
   fi
 
   true
 }
-### end mac-components/rbenv
-
-fancy_echo "Installing GNU Compiler Collection, a necessary prerequisite to installing Ruby ..."
-  brew_tap homebrew/dupes
-  brew_install apple-gcc42
-
-fancy_echo "Upgrading and linking OpenSSL ..."
-  brew_install openssl
-
-export CC=gcc-4.2
-### end mac-components/compiler-and-libraries
+### end mac-components/chruby
 
 ruby_version="2.1.1"
 
 fancy_echo "Installing Ruby $ruby_version ..."
-  rbenv_install "$ruby_version"
+  ruby_install "$ruby_version"
 
 fancy_echo "Setting $ruby_version as global default Ruby ..."
-  rbenv global "$ruby_version"
-  rbenv rehash
+  chruby $ruby_version
+  echo "ruby-$ruby_version" > ~/.ruby-version
 
 if ! is_ruby_version_installed $ruby_version; then
   fancy_echo "Updating to latest Rubygems version ..."
