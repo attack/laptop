@@ -1,6 +1,3 @@
-fancy_echo "Install sl, for a faster ls..."
-  brew_install sl
-
 fancy_echo "Installing Postgres, a good open source relational database ..."
   brew_install postgres --no-python
 
@@ -30,6 +27,3 @@ fancy_echo "Installing QT, used by Capybara Webkit for headless Javascript integ
 
 fancy_echo "Installing tig, text-mode interface to git..."
   brew_install tig
-
-fancy_echo "Install gti, for a faster git..."
-  brew_install gti
