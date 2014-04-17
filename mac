@@ -202,9 +202,6 @@ fancy_echo "Setting OSX settings ..."
   # defaults write com.apple.Finder FXPreferredViewStyle clmv
   defaults write com.apple.finder FXPreferredViewStyle -string "clmv"
 
-  # Empty Trash securely by default
-  defaults write com.apple.finder EmptyTrashSecurely -bool true
-
   # Show the ~/Library folder.
   chflags nohidden ~/Library
 
