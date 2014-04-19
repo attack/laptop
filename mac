@@ -559,9 +559,11 @@ fancy_echo "Creating workspace ..."
 
 fancy_echo "Cloning Dotfiles ..."
   git_clone https://github.com/attack/dotfiles.git ~/workspace/dotfiles
+  git_clone https://github.com/attack/vim-bootstrap.git ~/workspace/vim-bootstrap
 
 fancy_echo "Symlinking Dotfiles ..."
   rcup -v -d ~/workspace/dotfiles -x README.md -x Brewfile -x install -x LICENSE
+  rcup -v -d ~/workspace/vim-bootstrap -x README.md -x Brewfile -x install -x LICENSE
 ### end common-components/dotfiles
 
 fancy_echo "Installing your shared additions from ~/.laptop.shared ..."
