@@ -14,15 +14,7 @@ ruby_install() {
   if is_ruby_version_installed $1; then
     less_fancy_echo "... skipping ruby $1, already installed"
   else
-    if [[ "$1" == 2.1* ]]; then
-      less_fancy_echo "... patching readline for $1"
-      ruby-install -p https://gist.githubusercontent.com/plexus/10021256/raw/9d9edf8d4f03643c7dce4d52c576ad40f2a01760/ruby-2.1.1-readline.patch ruby $1
-    elif [[ "$1" == 2.0* ]]; then
-      less_fancy_echo "... patching readline for $1"
-      ruby-install -p https://gist.githubusercontent.com/plexus/10021261/raw/305492ebd17308e55eee1baab27568fafaa940cb/ruby-2.0-p451-readline.patch ruby $1
-    else
-      ruby-install ruby $1
-    fi
+    ruby-install ruby $1
   fi
 
   source /usr/local/share/chruby/chruby.sh
