@@ -19,6 +19,16 @@ brew_install() {
   true
 }
 
+brew_uninstall() {
+  if brew list -1 | grep -q "^$1"; then
+    brew uninstall $1
+  else
+    less_fancy_echo "... skip removing $1, not installed"
+  fi
+
+  true
+}
+
 brew_install_or_upgrade() {
   if brew list -1 | grep -q "^$1"; then
     if brew outdated -q | grep -q "^$1"; then
