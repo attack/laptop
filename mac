@@ -253,7 +253,7 @@ brew_install() {
   true
 }
 
-brew_install_or_update() {
+brew_install_or_upgrade() {
   if brew list -1 | grep -q "^$1"; then
     if brew outdated -q | grep -q "^$1"; then
       brew upgrade $1
@@ -287,6 +287,28 @@ brew_tap() {
   fi
 
   true
+}
+
+brew_migrate_or_add_tap() {
+  if is_brew_tap_installed $1; then
+    less_fancy_echo "... migrating taps $1 -> $2"
+    brew untap $1
+    brew tap $2
+  else
+    brew_tap $2
+  fi
+
+  true
+}
+
+TAPS=$(brew_tap_list)
+
+brew_tap_list() {
+  brew tap 2> /dev/null || true
+}
+
+is_brew_tap_installed() {
+  echo ${TAPS} | grep -q "\b$1"
 }
 ### end mac-components/homebrew
 
@@ -339,8 +361,8 @@ fancy_echo "Installing tig, text-mode interface to git..."
 ### end mac-components/packages
 
 fancy_echo "Installing Brew Cask, to install OSX binaries ..."
-  brew_tap phinze/homebrew-cask
-  brew_install brew-cask
+  brew_install_or_upgrade brew-cask
+  brew_migrate_or_add_tap 'phinze/cask' 'caskroom/cask'
 
 brew_cask_list() {
   brew cask list 2> /dev/null || true
@@ -471,7 +493,7 @@ fancy_echo "Installing chruby, to change Ruby versions ..."
   source /usr/local/share/chruby/auto.sh
 
 fancy_echo "Installing ruby-install, to install Rubies ..."
-  brew_install_or_update ruby-install
+  brew_install_or_upgrade ruby-install
 
 is_ruby_version_installed() {
   chruby | grep -q "ruby-$1"

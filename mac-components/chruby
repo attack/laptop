@@ -4,7 +4,7 @@ fancy_echo "Installing chruby, to change Ruby versions ..."
   source /usr/local/share/chruby/auto.sh
 
 fancy_echo "Installing ruby-install, to install Rubies ..."
-  brew_install_or_update ruby-install
+  brew_install_or_upgrade ruby-install
 
 is_ruby_version_installed() {
   chruby | grep -q "ruby-$1"

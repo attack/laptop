@@ -19,7 +19,7 @@ brew_install() {
   true
 }
 
-brew_install_or_update() {
+brew_install_or_upgrade() {
   if brew list -1 | grep -q "^$1"; then
     if brew outdated -q | grep -q "^$1"; then
       brew upgrade $1
@@ -53,4 +53,26 @@ brew_tap() {
   fi
 
   true
+}
+
+brew_migrate_or_add_tap() {
+  if is_brew_tap_installed $1; then
+    less_fancy_echo "... migrating taps $1 -> $2"
+    brew untap $1
+    brew tap $2
+  else
+    brew_tap $2
+  fi
+
+  true
+}
+
+TAPS=$(brew_tap_list)
+
+brew_tap_list() {
+  brew tap 2> /dev/null || true
+}
+
+is_brew_tap_installed() {
+  echo ${TAPS} | grep -q "\b$1"
 }
