@@ -22,7 +22,7 @@ terminal and then click "Install".
 Read, then run the script:
 
 ```sh
-bash <(curl -s https://raw.github.com/attack/laptop/master/mac)
+bash <(curl -s https://raw.githubusercontent.com/attack/laptop/master/mac)
 ```
 
 ## What it sets up
