@@ -77,11 +77,11 @@ brew_migrate_or_add_tap() {
   true
 }
 
-TAPS=$(brew_tap_list)
-
 brew_tap_list() {
   brew tap 2> /dev/null || true
 }
+
+TAPS=$(brew_tap_list)
 
 is_brew_tap_installed() {
   echo ${TAPS} | grep -q "\b$1"
