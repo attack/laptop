@@ -366,6 +366,9 @@ fancy_echo "Installing Bash Completion, for better bash completion ..."
 fancy_echo "Installing QT, used by Capybara Webkit for headless Javascript integration testing ..."
   brew_install qt
 
+fancy_echo "Installing nginx, for fast serving of assets during tests..."
+  brew_install nginx
+
 fancy_echo "Installing tig, text-mode interface to git..."
   brew_install tig
 ### end mac-components/packages
