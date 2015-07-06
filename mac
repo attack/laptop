@@ -424,7 +424,7 @@ fancy_echo "Installing Textmate, for a good scratch pad ..."
   brew_cask_install textmate
 
 fancy_echo "Installing Gitx (rownaj fork), in case you forget about 'git add -p' ..."
-  brew_cask_install gitx-rowanj
+  brew_cask_install rowanj-gitx
 
 fancy_echo "Installing Day-O, a better menu bar clock + calendar ..."
   brew_cask_install day-o
