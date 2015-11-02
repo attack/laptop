@@ -27,7 +27,7 @@ bash <(curl -s https://raw.githubusercontent.com/attack/laptop/master/mac)
 
 ## What it sets up
 
-* Rbenv for managing versions of the Ruby programming language
+* chruby for managing versions of the Ruby programming language
 * Ruby Build for installing Rubies
 * Ruby stable for writing general-purpose code
 * Bundler gem for managing Ruby libraries
