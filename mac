@@ -438,9 +438,6 @@ fancy_echo "Installing iTerm2, almost forgot ..."
 
 fancy_echo "Installing Macvim, of course, what took so long ..."
   brew_cask_install macvim
-
-fancy_echo "Linking Alfred, so that it sees casks ..."
-  brew_cask_link alfred
 ### end mac-components/casks
 
 fancy_echo "Tapping Brew Cask Fonts, to allow easy install of fonts ..."
