@@ -374,7 +374,6 @@ fancy_echo "Installing tig, text-mode interface to git..."
 ### end mac-components/packages
 
 fancy_echo "Installing Brew Cask, to install OSX binaries ..."
-  brew_install_or_upgrade caskroom/cask/brew-cask
 
 brew_cask_list() {
   brew cask list 2> /dev/null || true
@@ -426,8 +425,8 @@ fancy_echo "Installing Textmate, for a good scratch pad ..."
 fancy_echo "Installing Gitx (rownaj fork), in case you forget about 'git add -p' ..."
   brew_cask_install rowanj-gitx
 
-fancy_echo "Installing Day-O, a better menu bar clock + calendar ..."
-  brew_cask_install day-o
+fancy_echo "Installing itsycal, a better menu bar clock + calendar ..."
+  brew_cask_install itsycal
 
 fancy_echo "Installing F-lux, to save your eyes ..."
   brew_cask_install flux
@@ -439,9 +438,6 @@ fancy_echo "Installing iTerm2, almost forgot ..."
 
 fancy_echo "Installing Macvim, of course, what took so long ..."
   brew_cask_install macvim
-
-fancy_echo "Linking Alfred, so that it sees casks ..."
-  brew_cask_link alfred
 ### end mac-components/casks
 
 fancy_echo "Tapping Brew Cask Fonts, to allow easy install of fonts ..."
@@ -567,7 +563,7 @@ fancy_echo "Starting Postgres ..."
   fi
 
 fancy_echo "Starting Menu Bar Apps ..."
-  start_if_needed Day-O
+  start_if_needed Itsycal
   start_if_needed Dropbox
   start_if_needed Caffeine
   start_if_needed ShiftIt

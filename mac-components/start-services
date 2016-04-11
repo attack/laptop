@@ -8,7 +8,7 @@ fancy_echo "Starting Postgres ..."
   fi
 
 fancy_echo "Starting Menu Bar Apps ..."
-  start_if_needed Day-O
+  start_if_needed Itsycal
   start_if_needed Dropbox
   start_if_needed Caffeine
   start_if_needed ShiftIt
