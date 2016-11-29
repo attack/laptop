@@ -520,7 +520,7 @@ ruby_install() {
 }
 ### end mac-components/chruby
 
-ruby_version="2.2.2"
+ruby_version="2.3.3"
 
 fancy_echo "Installing Ruby $ruby_version ..."
   ruby_install "$ruby_version"
