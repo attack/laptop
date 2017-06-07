@@ -545,7 +545,7 @@ fancy_echo "Installing Heroku CLI client ..."
   brew_install heroku-toolbelt
 
 fancy_echo "Installing the heroku-config plugin to pull config variables locally to be used as ENV variables ..."
-  heroku plugins:install git://github.com/ddollar/heroku-config.git
+  heroku plugins:install heroku-config
 ### end mac-components/heroku
 
 fancy_echo "Installing thoughbot rcm, to manage your dotfiles ..."
