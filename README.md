@@ -48,7 +48,7 @@ bash <(curl -s https://raw.githubusercontent.com/attack/laptop/master/mac)
 * Dropbox + Google Drive
 * Textmate
 * Gitx for a git GUI
-* Day-O for a menu bar time + calendar
+* ItsyCal for a menu bar time + calendar
 * Flux
 * iTerm2
 * vim + MacVim
