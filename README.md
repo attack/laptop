@@ -45,7 +45,7 @@ bash <(curl -s https://raw.githubusercontent.com/attack/laptop/master/mac)
 * Alfred for application launching
 * Caffeine for managing mac sleep
 * Google Chrome
-* Dropbox + Google Drive
+* Google Drive
 * Textmate
 * Gitx for a git GUI
 * ItsyCal for a menu bar time + calendar
