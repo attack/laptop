@@ -541,8 +541,18 @@ fancy_echo "Configuring Bundler for faster, parallel gem installation ..."
 fancy_echo "Installing Heroku CLI client ..."
   brew_install heroku-toolbelt
 
+heroku_install() {
+  if heroku plugins | grep -q "^$1"; then
+    less_fancy_echo "... skipping $1, already installed"
+  else
+    heroku plugins:install $1
+  fi
+
+  true
+}
+
 fancy_echo "Installing the heroku-config plugin to pull config variables locally to be used as ENV variables ..."
-  heroku plugins:install heroku-config
+  heroku_install heroku-config
 ### end mac-components/heroku
 
 fancy_echo "Installing thoughbot rcm, to manage your dotfiles ..."
