@@ -147,9 +147,7 @@ fancy_echo "Setting OSX settings ..."
   # Prevent Time Machine from prompting to use new hard drives as backup volume
   defaults write com.apple.TimeMachine DoNotOfferNewDisksForBackup -bool true
 
-
 less_fancy_echo "Restarting affected apps, some of these changes require a logout/restart ..."
-
   for app in "cfprefsd" "Finder" "SystemUIServer"; do
     killall "${app}" > /dev/null 2>&1
   done
@@ -539,4 +537,3 @@ less_fancy_echo "   ${YELLOW}**** USING SPECIFIC APPS${RESET}"
 less_fancy_echo " - use solarized for Terminal. Theme was installed, just make it default"
 less_fancy_echo " - use solarized for iTerm2. Theme was installed, just apply it"
 less_fancy_echo ""
-
