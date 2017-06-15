@@ -64,21 +64,26 @@ Put your customizations in `~/.laptop.local`. For example, your
 `~/.laptop.local` might look like this:
 
 ```sh
-brew_cask_install spotify
-brew_cask_install viscosity
+brew bundle --file=- <<EOF
+cask "spotify"
+cask "viscosity"
+EOF
 start_if_needed Viscosity
 
 rubies=( '1.9.3' '2.0.0' )
 for local_ruby_version in ${rubies[@]}; do
-  if ! is_ruby_version_installed $local_ruby_version; then
-    fancy_echo "Installing Ruby $ruby ..."
-      ruby_install $local_ruby_version
-      chruby-exec $local_ruby_version gem update --system
-      chruby-exec $local_ruby_version gem install bundler --no-document --pre
-  fi
+  fancy_echo "Installing Ruby ${local_ruby_version} ..."
+    ruby-install --no-reinstall "ruby-${local_ruby_version}"
+    chruby-exec $local_ruby_version gem update --system
+    chruby-exec $local_ruby_version gem install bundler --no-document --pre
 done
 
 defaults write com.apple.menuextra.battery ShowPercent -string "YES"
+
+less_fancy_echo "Restarting affected apps ..."
+  for app in "cfprefsd" "SystemUIServer"; do
+    killall "${app}" > /dev/null 2>&1
+  done
 ```
 
 ## Credits
