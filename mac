@@ -270,30 +270,15 @@ fancy_echo "Installing chruby ..."
   source /usr/local/share/chruby/chruby.sh
   source /usr/local/share/chruby/auto.sh
 
-is_ruby_version_installed() {
-  chruby | grep -q "ruby-$1"
+find_latest_ruby() {
+  chruby | tr -d '* ' | grep -x "ruby-.*" | sort -t. -k 1,1nr -k 2,2nr -k 3,3nr -k 4,4nr | head -1
 }
 
-ruby_install() {
-  if is_ruby_version_installed $1; then
-    less_fancy_echo "... skipping ruby $1, already installed"
-  else
-    ruby-install ruby $1
-  fi
-
-  source /usr/local/share/chruby/chruby.sh
-
-  true
-}
-
-ruby_version="2.4.1"
-
-fancy_echo "Installing Ruby $ruby_version ..."
-  ruby_install "$ruby_version"
-
-fancy_echo "Setting $ruby_version as global default Ruby ..."
-  chruby $ruby_version
-  echo "ruby-$ruby_version" > ~/.ruby-version
+fancy_echo "Install and use latest ruby ..."
+  ruby-install --latest --no-reinstall ruby
+  latest_ruby_version=$(find_latest_ruby)
+  chruby ${latest_ruby_version}
+  echo ${latest_ruby_version} > ~/.ruby-version
 
 fancy_echo "Updating to latest Rubygems version ..."
   gem update --system
