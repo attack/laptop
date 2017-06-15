@@ -184,7 +184,7 @@ brew "hub"
 brew "postgres", args: ["no-python"], restart_service: true
 brew "redis", restart_service: true
 brew "the_silver_searcher"
-brew "vim", args: ["override-system-vi"]
+brew "vim", args: ["with-override-system-vi"]
 brew "ctags"
 brew "tmux"
 brew "reattach-to-user-namespace"
