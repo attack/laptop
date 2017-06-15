@@ -2,24 +2,17 @@
 
 # Ask for the administrator password upfront
 sudo -v
-### end common-components/bash-shebang
 
 # Welcome to the laptop script! Be prepared to turn your laptop (or
 # desktop, no haters here) into an awesome development machine.
 
-# This file is auto-generated. Do not edit it by hand unless you know what
-# you're doing. Please see 'CONTRIBUTING.md' for more information.
-### end common-components/header
-
 trap 'ret=$?; test $ret -ne 0 && printf "failed\n\n" >&2; exit $ret' EXIT
 
 set -e
-### end common-components/exit-trap
 
 if [[ ! -d "$HOME/.bin/" ]]; then
   mkdir "$HOME/.bin"
 fi
-### end common-components/check-home-bin
 
 fancy_echo() {
   printf "\n%b\n" "$1"
@@ -32,7 +25,6 @@ less_fancy_echo() {
 function pause(){
    read -p "$*"
 }
-### end common-components/shared-functions
 
 DULL=0
 BRIGHT=1
@@ -84,13 +76,11 @@ BRIGHT_BLUE="$ESC[${BRIGHT};${FG_BLUE}m"
 BRIGHT_VIOLET="$ESC[${BRIGHT};${FG_VIOLET}m"
 BRIGHT_CYAN="$ESC[${BRIGHT};${FG_CYAN}m"
 BRIGHT_WHITE="$ESC[${BRIGHT};${FG_WHITE}m"
-### end common-components/colours
 
 fancy_echo "Initialize SSH ..."
   if [ ! -d ~/.ssh/ ]; then
     ssh-keygen -f ~/.ssh/id_rsa -t rsa -N ''
   fi
-### end common-components/ssh
 
 start_if_needed() {
   local grep_name="[${1:0:1}]${1:1}"
@@ -107,7 +97,6 @@ start_if_needed() {
 
   true
 }
-### end mac-components/shared-functions
 
 fancy_echo "Setting OSX settings ..."
 
@@ -217,7 +206,6 @@ less_fancy_echo "Restarting affected apps, some of these changes require a logou
   for app in "cfprefsd" "Finder" "SystemUIServer"; do
     killall "${app}" > /dev/null 2>&1
   done
-### end mac-components/osx
 
 fancy_echo "Installing XCode ..."
   if [ ! $(xcode-select -p)='/Library/Developer/CommandLineTools' ]; then
@@ -230,7 +218,6 @@ fancy_echo "Installing XCode ..."
   else
     less_fancy_echo '... skipping, looks like XCode is installed'
   fi
-### end mac-components/xcode
 
 if ! which brew &>/dev/null; then
   fancy_echo "Installing Homebrew, a good OS X package manager ..."
@@ -320,7 +307,6 @@ TAPS=$(brew_tap_list)
 is_brew_tap_installed() {
   echo ${TAPS} | grep -q "\b$1"
 }
-### end mac-components/homebrew
 
 fancy_echo "Installing Git, thee version control system ..."
   brew_install git
@@ -337,7 +323,6 @@ git_clone() {
 
   true
 }
-### end mac-components/git
 
 fancy_echo "Installing Postgres, a good open source relational database ..."
   brew_install postgres --no-python
@@ -371,7 +356,6 @@ fancy_echo "Installing nginx, for fast serving of assets during tests..."
 
 fancy_echo "Installing tig, text-mode interface to git..."
   brew_install tig
-### end mac-components/packages
 
 fancy_echo "Installing Brew Cask, to install OSX binaries ..."
 
@@ -435,7 +419,6 @@ fancy_echo "Installing iTerm2, almost forgot ..."
 
 fancy_echo "Installing Macvim, of course, what took so long ..."
   brew_cask_install macvim
-### end mac-components/casks
 
 fancy_echo "Tapping Brew Cask Fonts, to allow easy install of fonts ..."
   brew_tap caskroom/fonts
@@ -445,7 +428,6 @@ fancy_echo "Installing Font inconsolata-dz, ohhh, pretty ..."
 
 fancy_echo "Installing Font source-code-pro, not bad ..."
   brew_cask_install font-source-code-pro
-### end mac-components/fonts
 
 fancy_echo "Installing wget, because sometimes you need a little wget ..."
   brew_install wget
@@ -490,7 +472,6 @@ fancy_echo "Installing Solarized Dark Theme for iTerm ..."
   else
     echo "... skipping theme install, iTerm 2 not installed"
   fi
-### end mac-components/downloads
 
 fancy_echo "Installing chruby, to change Ruby versions ..."
   brew_install chruby
@@ -515,7 +496,6 @@ ruby_install() {
 
   true
 }
-### end mac-components/chruby
 
 ruby_version="2.4.1"
 
@@ -531,12 +511,10 @@ fancy_echo "Updating to latest Rubygems version ..."
 
 fancy_echo "Installing Bundler to install project-specific Ruby gems ..."
   gem install bundler --no-document --pre
-### end common-components/ruby-environment
 
 fancy_echo "Configuring Bundler for faster, parallel gem installation ..."
   number_of_cores=$(sysctl -n hw.ncpu)
   bundle config --global jobs $((number_of_cores - 1))
-### end mac-components/bundler
 
 fancy_echo "Installing Heroku CLI client ..."
   brew_install heroku-toolbelt
@@ -553,12 +531,10 @@ heroku_install() {
 
 fancy_echo "Installing the heroku-config plugin to pull config variables locally to be used as ENV variables ..."
   heroku_install heroku-config
-### end mac-components/heroku
 
 fancy_echo "Installing thoughbot rcm, to manage your dotfiles ..."
   brew_tap thoughtbot/formulae
   brew_install rcm
-### end mac-components/rcm
 
 fancy_echo "Starting Postgres ..."
   # brew_start postgres
@@ -573,14 +549,12 @@ fancy_echo "Starting Menu Bar Apps ..."
   start_if_needed Itsycal
   start_if_needed Caffeine
   start_if_needed ShiftIt
-### end mac-components/start-services
 
 fancy_echo "Cleaning up Brew ..."
   brew cleanup
 
 fancy_echo "Cleaning up Brew Cask ..."
   brew cask cleanup
-### end mac-components/cleanup
 
 fancy_echo "Creating workspace ..."
   mkdir -p ~/workspace
@@ -592,7 +566,6 @@ fancy_echo "Cloning Dotfiles ..."
 fancy_echo "Symlinking Dotfiles ..."
   rcup -v -d ~/workspace/dotfiles -x README.md -x Brewfile -x install -x LICENSE -x tags
   rcup -v -d ~/workspace/vim-bootstrap -x README.md -x Brewfile -x install -x LICENSE -x tags
-### end common-components/dotfiles
 
 fancy_echo "Installing your shared additions from ~/.laptop.shared ..."
   if [[ -f ~/.laptop.shared ]]; then
@@ -603,7 +576,6 @@ fancy_echo "Installing your personal additions from ~/.laptop.local ..."
   if [[ -f ~/.laptop.local ]]; then
     source ~/.laptop.local
   fi
-### end common-components/personal-additions
 
 less_fancy_echo ""
 less_fancy_echo " ${GREEN}******************"
@@ -620,5 +592,4 @@ less_fancy_echo "   ${YELLOW}**** USING SPECIFIC APPS${RESET}"
 less_fancy_echo " - use solarized for Terminal. Theme was installed, just make it default"
 less_fancy_echo " - use solarized for iTerm2. Theme was installed, just apply it"
 less_fancy_echo ""
-### end mac-components/todo
 
