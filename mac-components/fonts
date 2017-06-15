@@ -1,8 +1,0 @@
-fancy_echo "Tapping Brew Cask Fonts, to allow easy install of fonts ..."
-  brew_tap caskroom/fonts
-
-fancy_echo "Installing Font inconsolata-dz, ohhh, pretty ..."
-  brew_cask_install font-inconsolata-dz
-
-fancy_echo "Installing Font source-code-pro, not bad ..."
-  brew_cask_install font-source-code-pro
