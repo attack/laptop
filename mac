@@ -197,6 +197,7 @@ brew "ruby-install"
 brew "heroku-toolbelt"
 brew "rcm"
 brew "qt", args: ["with-qtwebkit"]
+brew "yarn"
 
 cask "alfred"
 cask "caffeine"
