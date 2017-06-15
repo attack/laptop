@@ -247,7 +247,7 @@ brew_install() {
   if brew list -1 | grep -q "^$1"; then
     less_fancy_echo "... skipping $1, already installed"
   else
-    brew install $1
+    brew install $1 $2
   fi
 
   true
@@ -363,8 +363,8 @@ fancy_echo "Installing reattach-to-user-namespace, for copy-paste and RubyMotion
 fancy_echo "Installing Bash Completion, for better bash completion ..."
   brew_install bash-completion
 
-fancy_echo "Installing QT, used by Capybara Webkit for headless Javascript integration testing ..."
-  brew_install qt
+fancy_echo "Installing QT5, used by Capybara Webkit for headless Javascript integration testing ..."
+  brew_install qt5 --with-qtwebkit
 
 fancy_echo "Installing nginx, for fast serving of assets during tests..."
   brew_install nginx
