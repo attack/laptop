@@ -23,7 +23,7 @@ less_fancy_echo() {
 }
 
 function pause(){
-   read -p "$*"
+  read -p "$*"
 }
 
 DULL=0
@@ -225,15 +225,15 @@ git_clone() {
 
 start_if_needed iTerm
 
-fancy_echo "Installing ShiftIt (onsi fork), for better window management ..."
-if [ ! -d /Applications/ShiftIt.app ]; then
+fancy_echo "Installing ShiftIt (onsi fork) ..."
+  if [ ! -d /Applications/ShiftIt.app ]; then
     wget https://raw.github.com/onsi/ShiftIt/master/ShiftIt.zip
     unzip -q ShiftIt.zip
     rm ShiftIt.zip
     mv ShiftIt.app /Applications/
-fi
+  fi
 
-fancy_echo "Downloading Solarized, for iTerm colours ..."
+fancy_echo "Downloading Solarized ..."
   if [ ! -d ~/Applications/solarized ]; then
     wget http://ethanschoonover.com/solarized/files/solarized.zip
     unzip -q solarized.zip
@@ -266,7 +266,7 @@ fancy_echo "Installing Solarized Dark Theme for iTerm ..."
     echo "... skipping theme install, iTerm 2 not installed"
   fi
 
-fancy_echo "Installing chruby, to change Ruby versions ..."
+fancy_echo "Installing chruby ..."
   source /usr/local/share/chruby/chruby.sh
   source /usr/local/share/chruby/auto.sh
 
