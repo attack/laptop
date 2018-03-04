@@ -348,6 +348,7 @@ less_fancy_echo " - allow apps downloaded from Anywhere (see Security & Privacy 
 less_fancy_echo " - allow ShiftIt Accessibility access (see Security & Privacy > Privacy > Accessibility)"
 less_fancy_echo " - map caps lock to ctrl (see Keyboard > Keyboard > Modifier Keys)"
 less_fancy_echo " - hide date/time in menu bar (see Date & Time > Clock)"
+less_fancy_echo " - set ItsyCal format to 'E h:mm a'"
 less_fancy_echo ""
 less_fancy_echo "   ${YELLOW}**** USING SPECIFIC APPS${RESET}"
 less_fancy_echo " - use solarized for Terminal. Theme was installed, just make it default"
