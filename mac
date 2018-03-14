@@ -167,7 +167,7 @@ fancy_echo "Installing XCode ..."
 if ! which brew &>/dev/null; then
   fancy_echo "Installing Homebrew ..."
     ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-    export PATH="/usr/local/bin:$PATH"
+    export PATH="$(brew --prefix)/bin:$PATH"
 else
   fancy_echo "Homebrew already installed. Skipping ..."
 fi
@@ -265,8 +265,8 @@ fancy_echo "Installing Solarized Dark Theme for iTerm ..."
   fi
 
 fancy_echo "Installing chruby ..."
-  source /usr/local/opt/chruby/share/chruby/chruby.sh
-  source /usr/local/opt/chruby/share/chruby/auto.sh
+  source $(brew --prefix chruby)/share/chruby/chruby.sh
+  source $(brew --prefix chruby)/share/chruby/auto.sh
 
 find_latest_ruby() {
   chruby | tr -d '* ' | grep -x "ruby-.*" | sort -t. -k 1,1nr -k 2,2nr -k 3,3nr -k 4,4nr | head -1
@@ -303,9 +303,7 @@ fancy_echo "Installing the heroku-config plugin to pull config variables locally
 
 fancy_echo "Starting Postgres ..."
   if [[ -z $(ps aux | grep "[p]ostgres") ]]; then
-    mkdir -p ~/Library/LaunchAgents
-    ln -sfv /usr/local/opt/postgresql/*.plist ~/Library/LaunchAgents
-    launchctl load ~/Library/LaunchAgents/homebrew.mxcl.postgresql.plist
+    brew services start postgresql
   fi
 
 fancy_echo "Starting Menu Bar Apps ..."
