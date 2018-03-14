@@ -265,8 +265,8 @@ fancy_echo "Installing Solarized Dark Theme for iTerm ..."
   fi
 
 fancy_echo "Installing chruby ..."
-  source /usr/local/share/chruby/chruby.sh
-  source /usr/local/share/chruby/auto.sh
+  source /usr/local/opt/chruby/share/chruby/chruby.sh
+  source /usr/local/opt/chruby/share/chruby/auto.sh
 
 find_latest_ruby() {
   chruby | tr -d '* ' | grep -x "ruby-.*" | sort -t. -k 1,1nr -k 2,2nr -k 3,3nr -k 4,4nr | head -1
