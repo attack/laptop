@@ -15,6 +15,8 @@ For Mavericks (10.9): run `sudo xcodebuild -license` and follow the instructions
 to accept the XCode agreement.  Then run `xcode-select --install` in your
 terminal and then click "Install".
 
+For Sierra (10.12): run `sudo xcodebuild -license`.
+
 ## Install
 
 ### Mac OS X
