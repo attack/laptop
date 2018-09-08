@@ -177,6 +177,7 @@ brew "git"
 brew "postgres", args: ["no-python"], restart_service: true
 brew "redis", restart_service: true
 brew "the_silver_searcher"
+brew "ripgrep"
 brew "vim", args: ["with-override-system-vi"]
 brew "ctags"
 brew "tmux"
