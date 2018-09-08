@@ -191,6 +191,7 @@ brew "ruby-install"
 brew "heroku-toolbelt"
 brew "rcm"
 brew "yarn"
+brew "golang"
 
 cask "alfred"
 cask "caffeine"
@@ -310,6 +311,7 @@ fancy_echo "Cleaning up Brew ..."
 
 fancy_echo "Creating workspace ..."
   mkdir -p ~/workspace
+  mkdir -p ~/workspace/go
 
 fancy_echo "Cloning Dotfiles ..."
   git_clone https://github.com/attack/dotfiles.git ~/workspace/dotfiles
