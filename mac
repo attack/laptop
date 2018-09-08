@@ -307,7 +307,6 @@ fancy_echo "Starting Menu Bar Apps ..."
 
 fancy_echo "Cleaning up Brew ..."
   brew cleanup
-  brew cask cleanup
 
 fancy_echo "Creating workspace ..."
   mkdir -p ~/workspace
