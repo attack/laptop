@@ -171,14 +171,14 @@ brew update
 brew bundle --file=- <<EOF
 tap "thoughtbot/formulae"
 tap "homebrew/services"
-tap "caskroom/fonts"
+tap "homebrew/cask-fonts"
 
 brew "git"
-brew "postgres", args: ["no-python"], restart_service: true
+brew "postgres", restart_service: true
 brew "redis", restart_service: true
 brew "the_silver_searcher"
 brew "ripgrep"
-brew "vim", args: ["with-override-system-vi"]
+brew "vim"
 brew "ctags"
 brew "tmux"
 brew "reattach-to-user-namespace"
@@ -188,7 +188,7 @@ brew "tig"
 brew "wget"
 brew "chruby"
 brew "ruby-install"
-brew "heroku-toolbelt"
+# brew "heroku-toolbelt" # not currently working
 brew "rcm"
 brew "yarn"
 brew "golang"
