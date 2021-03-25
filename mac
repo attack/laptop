@@ -181,7 +181,7 @@ fancy_echo "Installing ShiftIt (onsi fork) ..."
 
 fancy_echo "Downloading Solarized ..."
   if [ ! -d ~/Applications/solarized ]; then
-    wget http://ethanschoonover.com/solarized/files/solarized.zip
+    wget https://ethanschoonover.com/solarized/files/solarized.zip
     unzip -q solarized.zip
     rm solarized.zip
     mv solarized ~/Applications/
