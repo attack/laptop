@@ -112,10 +112,12 @@ fancy_echo "Installing XCode ..."
     less_fancy_echo '... skipping, looks like XCode is installed'
   fi
 
+newly_installed_homebrew=0
 if ! which brew &>/dev/null; then
   fancy_echo "Installing Homebrew ..."
-    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-    export PATH="$(brew --prefix)/bin:$PATH"
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+    newly_installed_homebrew=1
 else
   fancy_echo "Homebrew already installed. Skipping ..."
 fi
@@ -260,9 +262,6 @@ fancy_echo "Starting Menu Bar Apps ..."
   start_if_needed Caffeine
   start_if_needed ShiftIt
 
-fancy_echo "Cleaning up Brew ..."
-  brew cleanup
-
 fancy_echo "Creating workspace ..."
   mkdir -p ~/workspace
   mkdir -p ~/workspace/go
@@ -284,6 +283,21 @@ fancy_echo "Installing your personal additions from ~/.laptop.local ..."
   if [[ -f ~/.laptop.local ]]; then
     source ~/.laptop.local
   fi
+
+if [ $newly_installed_homebrew -eq 1 ]; then
+  fancy_echo "Updating shell config for Homebrew ..."
+    if [[ -f ~/.zprofile ]]; then
+      echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zprofile
+    fi
+
+    if [[ -f ~/.bash_profile ]]; then
+      echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.bash_profile
+    fi
+fi
+
+
+fancy_echo "Cleaning up Brew ..."
+  brew cleanup
 
 less_fancy_echo ""
 less_fancy_echo " ${GREEN}******************"
