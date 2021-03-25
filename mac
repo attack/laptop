@@ -148,9 +148,7 @@ brew "golang"
 cask "alfred"
 cask "textmate"
 cask "iterm2"
-cask "font-inconsolata-dz"
 cask "font-source-code-pro"
-cask "iterm2"
 EOF
 
 git_clone() {
