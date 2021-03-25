@@ -146,7 +146,6 @@ brew "yarn"
 brew "golang"
 
 cask "alfred"
-cask "caffeine"
 cask "textmate"
 cask "iterm2"
 cask "font-inconsolata-dz"
@@ -232,7 +231,6 @@ fancy_echo "Configuring Bundler for faster, parallel gem installation ..."
   bundle config --global jobs $((number_of_cores - 1))
 
 fancy_echo "Starting Menu Bar Apps ..."
-  start_if_needed Caffeine
   start_if_needed ShiftIt
 
 fancy_echo "Creating workspace ..."
