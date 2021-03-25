@@ -222,7 +222,6 @@ fancy_echo "Configuring Bundler for faster, parallel gem installation ..."
 
 fancy_echo "Creating workspace ..."
   mkdir -p ~/workspace
-  mkdir -p ~/workspace/go
 
 fancy_echo "Cloning Dotfiles ..."
   git_clone https://github.com/attack/dotfiles.git ~/workspace/dotfiles
