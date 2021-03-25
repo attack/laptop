@@ -163,14 +163,6 @@ git_clone() {
 
 start_if_needed iTerm
 
-fancy_echo "Installing ShiftIt (onsi fork) ..."
-  if [ ! -d /Applications/ShiftIt.app ]; then
-    wget https://raw.github.com/onsi/ShiftIt/master/ShiftIt.zip
-    unzip -q ShiftIt.zip
-    rm ShiftIt.zip
-    mv ShiftIt.app /Applications/
-  fi
-
 fancy_echo "Downloading Solarized ..."
   if [ ! -d ~/Applications/solarized ]; then
     wget https://ethanschoonover.com/solarized/files/solarized.zip
@@ -228,9 +220,6 @@ fancy_echo "Configuring Bundler for faster, parallel gem installation ..."
   number_of_cores=$(sysctl -n hw.ncpu)
   bundle config --global jobs $((number_of_cores - 1))
 
-fancy_echo "Starting Menu Bar Apps ..."
-  start_if_needed ShiftIt
-
 fancy_echo "Creating workspace ..."
   mkdir -p ~/workspace
   mkdir -p ~/workspace/go
@@ -275,7 +264,6 @@ less_fancy_echo " ******************${RESET}"
 less_fancy_echo ""
 less_fancy_echo "   ${YELLOW}**** USING SYSTEM PREFERENCES${RESET}"
 less_fancy_echo " - allow apps downloaded from Anywhere (see Security & Privacy > General)"
-less_fancy_echo " - allow ShiftIt Accessibility access (see Security & Privacy > Privacy > Accessibility)"
 less_fancy_echo " - map caps lock to ctrl (see Keyboard > Keyboard > Modifier Keys)"
 less_fancy_echo ""
 less_fancy_echo "   ${YELLOW}**** USING SPECIFIC APPS${RESET}"
