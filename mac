@@ -142,7 +142,6 @@ brew "tig"
 brew "wget"
 brew "chruby"
 brew "ruby-install"
-# brew "heroku-toolbelt" # not currently working
 brew "rcm"
 brew "yarn"
 brew "golang"
@@ -236,19 +235,6 @@ fancy_echo "Installing Bundler to install project-specific Ruby gems ..."
 fancy_echo "Configuring Bundler for faster, parallel gem installation ..."
   number_of_cores=$(sysctl -n hw.ncpu)
   bundle config --global jobs $((number_of_cores - 1))
-
-heroku_install() {
-  if heroku plugins | grep -q "^$1"; then
-    less_fancy_echo "... skipping $1, already installed"
-  else
-    heroku plugins:install $1
-  fi
-
-  true
-}
-
-fancy_echo "Installing the heroku-config plugin to pull config variables locally to be used as ENV variables ..."
-  heroku_install heroku-config
 
 fancy_echo "Starting Menu Bar Apps ..."
   start_if_needed Itsycal
