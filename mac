@@ -130,8 +130,6 @@ tap "homebrew/services"
 tap "homebrew/cask-fonts"
 
 brew "git"
-brew "postgres", restart_service: true
-brew "redis", restart_service: true
 brew "the_silver_searcher"
 brew "ripgrep"
 brew "vim"
@@ -251,11 +249,6 @@ heroku_install() {
 
 fancy_echo "Installing the heroku-config plugin to pull config variables locally to be used as ENV variables ..."
   heroku_install heroku-config
-
-fancy_echo "Starting Postgres ..."
-  if [[ -z $(ps aux | grep "[p]ostgres") ]]; then
-    brew services start postgresql
-  fi
 
 fancy_echo "Starting Menu Bar Apps ..."
   start_if_needed Itsycal
